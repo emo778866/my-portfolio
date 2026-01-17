@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MEHEDI HASAN EMO - Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.3/css/academicons.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap');
         
@@ -12,6 +13,8 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         html {
@@ -23,9 +26,47 @@
             color: #ffffff;
             background: #000000;
             overflow-x: hidden;
+            position: relative;
         }
         
-        /* Hero Section with Background */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            width: 1.5px;
+            height: 1.5px;
+            background: white;
+            border-radius: 50%;
+            animation: fall linear infinite;
+            opacity: 0;
+            box-shadow: 0 0 3px rgba(255, 255, 255, 0.6);
+        }
+        
+        @keyframes fall {
+            0% {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            15% {
+                opacity: 0.6;
+            }
+            85% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh);
+            }
+        }
+        
         .hero {
             height: 100vh;
             position: relative;
@@ -45,19 +86,21 @@
             height: 100%;
             background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.5) 100%),
                         url('back.png') center/cover;
-            z-index: -1;
+            z-index: 2;
             filter: grayscale(100%) contrast(1.1) brightness(1.2);
             opacity: 0;
-            animation: fadeInBackground 0.8s ease 3.5s forwards;
+            animation: fadeInBackground 0.8s ease 3.5s forwards, slowPan 60s ease-in-out infinite;
+        }
+        
+        @keyframes slowPan {
+            0%, 100% { transform: scale(1) translateX(0); }
+            50% { transform: scale(1.1) translateX(-2%); }
         }
         
         @keyframes fadeInBackground {
-            to {
-                opacity: 1;
-            }
+            to { opacity: 1; }
         }
         
-        /* Navbar */
         nav {
             position: fixed;
             top: 0;
@@ -74,14 +117,8 @@
         }
         
         @keyframes fadeInNav {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         nav.scrolled {
@@ -117,7 +154,16 @@
             width: 100%;
         }
         
-        /* Social Links Sidebar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #64c8ff, #ff9664);
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+        
         .social-sidebar {
             position: fixed;
             right: 0;
@@ -136,11 +182,8 @@
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-left: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 
-                -15px 0 50px rgba(0, 0, 0, 0.5),
-                -8px 0 20px rgba(0, 0, 0, 0.3),
-                inset 1px 0 1px rgba(255, 255, 255, 0.2),
-                inset -1px 0 1px rgba(0, 0, 0, 0.1);
+            box-shadow: -15px 0 50px rgba(0, 0, 0, 0.5), -8px 0 20px rgba(0, 0, 0, 0.3),
+                        inset 1px 0 1px rgba(255, 255, 255, 0.2), inset -1px 0 1px rgba(0, 0, 0, 0.1);
         }
         
         .social-sidebar::before {
@@ -165,21 +208,14 @@
         }
         
         @keyframes fadeInSocial {
-            from {
-                opacity: 0;
-                transform: translateX(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
         
         .social-sidebar a {
             color: #888888;
             font-size: 2rem;
             transition: all 0.3s ease;
-            position: relative;
         }
         
         .social-sidebar a:hover {
@@ -187,43 +223,18 @@
             transform: scale(1.3);
         }
         
-        /* Hero Content */
         .hero-content {
             width: 100%;
             opacity: 0;
             animation: fadeInHero 1s ease 1.1s forwards;
             transform: translateX(-100px);
+            position: relative;
+            z-index: 3;
         }
         
         @keyframes fadeInHero {
-            from {
-                opacity: 0;
-                transform: translateX(-100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes fadeInContent {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
         }
         
         .name {
@@ -260,40 +271,18 @@
             margin-bottom: 0.5rem;
         }
         
-        .tagline span:nth-child(1) {
-            animation: fadeInTag 0.6s ease 2.1s forwards;
-        }
-        
-        .tagline span:nth-child(2) {
-            animation: fadeInTag 0.6s ease 2.3s forwards;
-        }
-        
-        .tagline span:nth-child(3) {
-            animation: fadeInTag 0.6s ease 2.6s forwards;
-        }
-
-        .tagline span:nth-child(4) {
-            animation: fadeInTag 0.6s ease 2.9s forwards;
-        }
-
-        .tagline span:nth-child(5) {
-            animation: fadeInTag 0.6s ease 3.2s forwards;
-        }
+        .tagline span:nth-child(1) { animation: fadeInTag 0.6s ease 2.1s forwards; }
+        .tagline span:nth-child(2) { animation: fadeInTag 0.6s ease 2.3s forwards; }
+        .tagline span:nth-child(3) { animation: fadeInTag 0.6s ease 2.6s forwards; }
+        .tagline span:nth-child(4) { animation: fadeInTag 0.6s ease 2.9s forwards; }
+        .tagline span:nth-child(5) { animation: fadeInTag 0.6s ease 3.2s forwards; }
         
         @keyframes fadeInTag {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Section Styling */
         section {
-            min-height: 100vh;
             padding: 8rem 8%;
             display: flex;
             flex-direction: column;
@@ -301,102 +290,247 @@
             position: relative;
         }
         
-        section:nth-child(even) {
-            background: #0a0a0a;
-        }
+        section:nth-child(even) { background: #0a0a0a; }
+        section:nth-child(odd) { background: #000000; }
         
-        section:nth-child(odd) {
-            background: #000000;
+        #about {
+            min-height: auto;
+            padding: 5rem 8%;
         }
         
         .section-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: 800;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
             position: relative;
             display: inline-block;
+            background: linear-gradient(135deg, #ffffff 0%, #aaaaaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -15px;
+            bottom: -20px;
             left: 0;
-            width: 80px;
-            height: 3px;
-            background: #ffffff;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #64c8ff, #ff9664);
+            box-shadow: 0 0 10px rgba(100, 200, 255, 0.5);
         }
         
         .section-content {
-            font-size: 1.1rem;
-            line-height: 1.9;
-            color: #c0c0c0;
-            max-width: 800px;
+            font-size: 1.3rem;
+            line-height: 2.1;
+            color: #d0d0d0;
+            max-width: 900px;
             font-weight: 300;
+            letter-spacing: 0.3px;
         }
         
-        /* About Section */
         #about .section-content {
             display: grid;
             gap: 2rem;
         }
         
-        /* Projects Grid */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
+        #about .section-content p {
+            text-align: justify;
+            text-indent: 2rem;
+        }
+        
+        .teaching-list {
+            list-style: none;
+            padding-left: 0;
             margin-top: 2rem;
         }
         
-        .project-card {
-            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
-            padding: 2.5rem;
-            border: 1px solid #222;
-            transition: all 0.4s ease;
+        .teaching-list li {
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 400;
+            letter-spacing: 0.8px;
+            color: #d0d0d0;
+            line-height: 1.8;
+            padding-left: 2rem;
             position: relative;
-            overflow: hidden;
         }
         
-        .project-card::before {
-            content: '';
+        .teaching-list li::before {
+            content: '▸';
             position: absolute;
-            top: 0;
-            left: -100%;
+            left: 0;
+            color: #64c8ff;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .research-container {
+            position: relative;
+            margin-top: 2rem;
+            height: 700px;
+            perspective: 2000px;
+            overflow: visible;
+        }
+        
+        .research-slider {
+            position: relative;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-            transition: left 0.6s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-style: preserve-3d;
         }
         
-        .project-card:hover::before {
-            left: 100%;
+        .research-card {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 400px;
+            height: 550px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transform-origin: center center;
+            will-change: transform, opacity, box-shadow;
         }
         
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: #444;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        .research-card:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.2);
         }
         
-        .project-card h3 {
+        .research-tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255,255,255,0.9);
+            color: #000;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            z-index: 10;
+            border-radius: 3px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .research-tag.project {
+            background: linear-gradient(135deg, #64c8ff, #4a9fd9);
+            color: #fff;
+        }
+        
+        .research-tag.research {
+            background: linear-gradient(135deg, #ff9664, #e67a4a);
+            color: #fff;
+        }
+        
+        .research-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .research-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+        
+        .research-card:hover .research-image img {
+            transform: scale(1.1);
+        }
+        
+        .research-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .research-content h3 {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         
-        .project-card p {
-            color: #999;
+        .research-content p {
+            color: #aaa;
             line-height: 1.7;
-            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
         }
         
-        /* Experience Timeline */
+        .research-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+            position: relative;
+        }
+        
+        .research-link::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ffffff;
+            transition: width 0.3s ease;
+        }
+        
+        .research-link:hover::after {
+            width: 100%;
+        }
+        
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #ffffff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .scroll-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .scroll-left { left: 2rem; }
+        .scroll-right { right: 2rem; }
+        .scroll-btn i { font-size: 1.3rem; }
+        
         .timeline {
             margin-top: 2rem;
             position: relative;
@@ -409,38 +543,54 @@
             left: 0;
             top: 0;
             bottom: 0;
-            width: 2px;
-            background: #333;
+            width: 3px;
+            background: linear-gradient(180deg, #64c8ff, #ff9664);
         }
         
         .timeline-item {
             margin-bottom: 3rem;
             position: relative;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideInTimeline 0.6s ease forwards;
         }
+        
+        @keyframes slideInTimeline {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
         
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -3.4rem;
+            left: -3.5rem;
             top: 5px;
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             background: #ffffff;
             border: 3px solid #000;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
         
         .timeline-item h3 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
             letter-spacing: 0.5px;
         }
         
         .timeline-item .date {
-            color: #777;
-            font-size: 0.9rem;
+            color: #888;
+            font-size: 0.95rem;
             margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -450,9 +600,44 @@
         .timeline-item p {
             color: #aaa;
             line-height: 1.8;
+            font-size: 1.1rem;
         }
         
-        /* Responsive */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .back-to-top:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+        }
+        
+        .back-to-top i {
+            color: #fff;
+            font-size: 1.3rem;
+        }
+        
         @media (max-width: 768px) {
             .hero {
                 align-items: flex-start;
@@ -460,9 +645,7 @@
                 padding: 6rem 5% 0 5%;
             }
             
-            .hero-content {
-                margin-top: 0;
-            }
+            .hero-content { margin-top: 0; }
             
             .name {
                 font-size: 15vw;
@@ -471,29 +654,49 @@
                 margin-bottom: 2rem;
             }
             
-            .tagline {
-                font-size: 0.6rem;
-            }
-            
-            .section-title {
-                font-size: 2.5rem;
-            }
+            .tagline { font-size: 0.6rem; }
+            .section-title { font-size: 2.5rem; }
+            .section-content { font-size: 1.1rem; }
             
             nav {
-                gap: 1.5rem;
+                gap: 1rem;
                 padding: 1.5rem 5%;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
             nav a {
-                font-size: 0.85rem;
+                font-size: 0.75rem;
+                letter-spacing: 1px;
             }
             
-            section {
-                padding: 5rem 5%;
+            section { padding: 5rem 5%; }
+            #about { padding: 3rem 5%; }
+            
+            .research-container { 
+                height: 600px;
+                padding: 0 10px;
             }
             
-            .projects-grid {
-                grid-template-columns: 1fr;
+            .research-card {
+                width: 320px;
+                height: 500px;
+            }
+            
+            .scroll-btn {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .scroll-btn i { font-size: 1.1rem; }
+            .scroll-left { left: 0.5rem; }
+            .scroll-right { right: 0.5rem; }
+            
+            .back-to-top {
+                bottom: 5.5rem;
+                left: 1rem;
+                width: 45px;
+                height: 45px;
             }
             
             .social-sidebar {
@@ -512,11 +715,8 @@
                 -webkit-backdrop-filter: blur(15px);
                 border-left: none;
                 border-top: 1px solid rgba(255, 255, 255, 0.18);
-                box-shadow: 
-                    0 -15px 50px rgba(0, 0, 0, 0.5),
-                    0 -8px 20px rgba(0, 0, 0, 0.3),
-                    inset 0 1px 1px rgba(255, 255, 255, 0.2),
-                    inset 0 -1px 1px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 -15px 50px rgba(0, 0, 0, 0.5), 0 -8px 20px rgba(0, 0, 0, 0.3),
+                            inset 0 1px 1px rgba(255, 255, 255, 0.2), inset 0 -1px 1px rgba(0, 0, 0, 0.1);
             }
             
             .social-sidebar::before {
@@ -531,44 +731,67 @@
                 background: radial-gradient(ellipse 100% 150px at 50% 100%, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
             }
             
-            .social-sidebar a {
-                font-size: 1.5rem;
+            .social-sidebar a { font-size: 1.5rem; }
+        }
+        
+        @media (max-width: 480px) {
+            .name { font-size: 18vw; }
+            .tagline { font-size: 0.55rem; }
+            .section-title { font-size: 2rem; }
+            .section-content { font-size: 1rem; }
+            nav a { font-size: 0.7rem; }
+            
+            .research-card {
+                width: 280px;
+                height: 480px;
             }
+            
+            .research-image { height: 200px; }
+            .research-content { padding: 1.5rem; }
+            .research-content h3 { font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="stars-container" id="starsContainer"></div>
+    
     <nav id="navbar">
         <a href="#home">Home</a>
         <a href="#about">About</a>
-        <a href="#projects">Projects</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#research">Research</a>
         <a href="#experience">Experience</a>
     </nav>
     
-    <!-- Social Sidebar -->
     <div class="social-sidebar">
-        <a href="https://facebook.com/yourprofile" target="_blank" title="Facebook">
+        <a href="https://www.facebook.com/emo778866" target="_blank" title="Facebook">
             <i class="fab fa-facebook-f"></i>
         </a>
-        <a href="https://instagram.com/yourprofile" target="_blank" title="Instagram">
+        <a href="https://www.instagram.com/emo_778866/" target="_blank" title="Instagram">
             <i class="fab fa-instagram"></i>
         </a>
-        <a href="https://codeforces.com/profile/yourprofile" target="_blank" title="Codeforces">
+        <a href="https://scholar.google.com" target="_blank" title="Google Scholar">
+            <i class="ai ai-google-scholar"></i>
+        </a>
+        <a href="https://codeforces.com/profile/hasanemo654" target="_blank" title="Codeforces">
             <i class="fas fa-code"></i>
         </a>
-        <a href="https://linkedin.com/in/yourprofile" target="_blank" title="LinkedIn">
+        <a href="https://www.linkedin.com/in/emo778866/" target="_blank" title="LinkedIn">
             <i class="fab fa-linkedin-in"></i>
         </a>
         <a href="https://github.com/emo778866" target="_blank" title="GitHub">
             <i class="fab fa-github"></i>
         </a>
-        <a href="mailto:your.email@example.com" title="Email">
+        <a href="mailto:mehedi.emo@bracu.ac.bd" title="Email">
             <i class="fas fa-envelope"></i>
         </a>
     </div>
     
-    <!-- Hero Section -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    
     <div class="hero" id="home">
         <div class="hero-content">
             <h1 class="name">MEHEDI<br>HASAN<br>EMO</h1>
@@ -582,40 +805,107 @@
         </div>
     </div>
     
-    <!-- About Section -->
     <section id="about">
         <h2 class="section-title">About</h2>
         <div class="section-content">
-            <p>I am a multidisciplinary designer and developer with a passion for creating meaningful digital experiences. My work spans across visual design, user experience, and full-stack development, always with an emphasis on clean aesthetics and intuitive functionality.</p>
-            <p>With years of experience in the industry, I've collaborated with diverse clients and teams to deliver projects that not only meet business objectives but also resonate with users on a deeper level. My approach combines strategic thinking with meticulous execution.</p>
-            <p>I believe in the power of simplicity—that the most impactful solutions often come from stripping away the unnecessary to reveal what truly matters. This philosophy guides every project I undertake.</p>
+            <p>I am a Lecturer in the Department of Computer Science & Engineering at BRAC University. I mainly teach System Analysis and Design, Artificial Intelligence, and Software Analysis, and my research interests include Large Language Models (especially RAG), Software Engineering, and Machine Learning. I am open to supervising motivated students for research and project work. I graduated from BRAC University in 2022 with a B.Sc. in Computer Science & Engineering with a major in Computer Science and Engineering.</p>
         </div>
     </section>
     
-    <!-- Projects Section -->
-    <section id="projects">
-        <h2 class="section-title">Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <h3>Luxury Brand Redesign</h3>
-                <p>Complete digital transformation for a premium fashion brand, featuring an immersive e-commerce experience with custom animations and seamless checkout flow.</p>
-            </div>
-            <div class="project-card">
-                <h3>Financial Dashboard</h3>
-                <p>Enterprise-level analytics platform designed for clarity and efficiency, enabling real-time data visualization and decision-making for financial institutions.</p>
-            </div>
-            <div class="project-card">
-                <h3>Creative Portfolio System</h3>
-                <p>A modular portfolio framework built for artists and designers, offering unprecedented customization while maintaining elegant simplicity and performance.</p>
-            </div>
-            <div class="project-card">
-                <h3>Mobile-First Experience</h3>
-                <p>Cross-platform application focused on user engagement, featuring intuitive gestures, smooth transitions, and a design system that scales beautifully.</p>
-            </div>
+    <section id="teaching">
+        <h2 class="section-title">Teaching</h2>
+        <div class="section-content">
+            <ul class="teaching-list">
+                <li>System Analysis and Design</li>
+                <li>Artificial Intelligence</li>
+                <li>Software Analysis</li>
+                <li>Machine Learning Fundamentals</li>
+                <li>Data Structures and Algorithms</li>
+                <li>Software Engineering Principles</li>
+            </ul>
         </div>
     </section>
     
-    <!-- Experience Section -->
+    <section id="research">
+        <h2 class="section-title">Research & Projects</h2>
+        <div class="research-container">
+            <button class="scroll-btn scroll-left" aria-label="Scroll left">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="research-slider" id="researchSlider">
+                <div class="research-card" data-index="0">
+                    <span class="research-tag research">Research</span>
+                    <div class="research-image">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop" alt="RAG System">
+                    </div>
+                    <div class="research-content">
+                        <h3>RAG-Enhanced Question Answering</h3>
+                        <p>Developing retrieval-augmented generation systems for improved contextual understanding in large language models.</p>
+                        <a href="#" class="research-link" target="_blank">View Project →</a>
+                    </div>
+                </div>
+                <div class="research-card" data-index="1">
+                    <span class="research-tag project">Project</span>
+                    <div class="research-image">
+                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=600&fit=crop" alt="Software Engineering">
+                    </div>
+                    <div class="research-content">
+                        <h3>Automated Code Review System</h3>
+                        <p>Machine learning-based tool for intelligent code analysis and quality assessment in software development workflows.</p>
+                        <a href="#" class="research-link" target="_blank">View Project →</a>
+                    </div>
+                </div>
+                <div class="research-card" data-index="2">
+                    <span class="research-tag project">Project</span>
+                    <div class="research-image">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=600&fit=crop" alt="Machine Learning">
+                    </div>
+                    <div class="research-content">
+                        <h3>Predictive Analytics Framework</h3>
+                        <p>A comprehensive framework for building and deploying predictive models in various domains using ensemble learning techniques.</p>
+                        <a href="#" class="research-link" target="_blank">View Project →</a>
+                    </div>
+                </div>
+                <div class="research-card" data-index="3">
+                    <span class="research-tag research">Research</span>
+                    <div class="research-image">
+                        <img src="https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=800&h=600&fit=crop" alt="Natural Language Processing">
+                    </div>
+                    <div class="research-content">
+                        <h3>Sentiment Analysis Tool</h3>
+                        <p>Advanced NLP-based sentiment analysis system for social media monitoring and customer feedback analysis.</p>
+                        <a href="#" class="research-link" target="_blank">View Project →</a>
+                    </div>
+                </div>
+                <div class="research-card" data-index="4">
+                    <span class="research-tag project">Project</span>
+                    <div class="research-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop" alt="Data Analytics">
+                    </div>
+                    <div class="research-content">
+                        <h3>Real-time Data Pipeline</h3>
+                        <p>Scalable data processing pipeline for real-time analytics and visualization of large-scale datasets.</p>
+                        <a href="#" class="research-link" target="_blank">View Project →</a>
+                    </div>
+                </div>
+                <div class="research-card" data-index="5">
+                    <span class="research-tag research">Research</span>
+                    <div class="research-image">
+                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=600&fit=crop" alt="Deep Learning">
+                    </div>
+                    <div class="research-content">
+                        <h3>Neural Architecture Search</h3>
+                        <p>Automated neural network design using evolutionary algorithms and reinforcement learning techniques.</p>
+                        <a href="#" class="research-link" target="_blank">View Project →</a>
+                    </div>
+                </div>
+            </div>
+            <button class="scroll-btn scroll-right" aria-label="Scroll right">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+    
     <section id="experience">
         <h2 class="section-title">Experience</h2>
         <div class="timeline">
@@ -630,7 +920,7 @@
                 <p>BRAC University</p>
             </div>
             <div class="timeline-item">
-                <h3>J2Ee Developer</h3>
+                <h3>J2EE Developer</h3>
                 <div class="date">April 2023 - July 2023</div>
                 <p>BJIT Academy</p>
             </div>
@@ -643,6 +933,50 @@
     </section>
     
     <script>
+        // Falling stars animation (only outside hero section)
+        function createStars() {
+            const container = document.getElementById('starsContainer');
+            const starCount = 50;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const leftPos = Math.random() * 100;
+                star.style.left = leftPos + '%';
+                star.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                star.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(star);
+            }
+        }
+        
+        createStars();
+        
+        // Hide stars in hero section
+        function updateStarsVisibility() {
+            const hero = document.querySelector('.hero');
+            const heroRect = hero.getBoundingClientRect();
+            const stars = document.querySelectorAll('.star');
+            
+            stars.forEach(star => {
+                const starRect = star.getBoundingClientRect();
+                const starCenterY = starRect.top + starRect.height / 2;
+                
+                if (starCenterY >= heroRect.top && starCenterY <= heroRect.bottom) {
+                    star.style.opacity = '0';
+                }
+            });
+        }
+        
+        setInterval(updateStarsVisibility, 100);
+        
+        // Scroll progress bar
+        window.addEventListener('scroll', () => {
+            const scrollProgress = document.getElementById('scrollProgress');
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            scrollProgress.style.width = scrolled + '%';
+        });
+        
         // Navbar scroll effect
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
@@ -653,7 +987,24 @@
             }
         });
         
-        // Smooth scroll with offset for navbar
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Smooth scroll for navigation
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -667,6 +1018,108 @@
                 }
             });
         });
+        
+        // Carousel functionality for research cards
+        const slider = document.getElementById('researchSlider');
+        const cards = Array.from(document.querySelectorAll('.research-card'));
+        const scrollLeftBtn = document.querySelector('.scroll-left');
+        const scrollRightBtn = document.querySelector('.scroll-right');
+        
+        let currentIndex = 0;
+        const totalCards = cards.length;
+        
+        function updateCarousel() {
+            cards.forEach((card, i) => {
+                const relativeIndex = (i - currentIndex + totalCards) % totalCards;
+                
+                let scale, zIndex, opacity, translateX, translateY, rotateY, boxShadow;
+                
+                if (relativeIndex === 0) {
+                    // Center card (closest to viewer)
+                    translateX = -200;
+                    translateY = -50;
+                    scale = 1.25;
+                    zIndex = 100;
+                    opacity = 1;
+                    rotateY = 0;
+                    boxShadow = '0 40px 100px rgba(0, 0, 0, 0.9), 0 20px 50px rgba(100, 200, 255, 0.4)';
+                } else if (relativeIndex === 1) {
+                    // Right card
+                    translateX = 250;
+                    translateY = -50;
+                    scale = 0.88;
+                    zIndex = 80;
+                    opacity = 0.75;
+                    rotateY = -12;
+                    boxShadow = '0 25px 70px rgba(0, 0, 0, 0.7), -15px 0 40px rgba(0, 0, 0, 0.5)';
+                } else if (relativeIndex === totalCards - 1) {
+                    // Left card
+                    translateX = -650;
+                    translateY = -50;
+                    scale = 0.88;
+                    zIndex = 80;
+                    opacity = 0.75;
+                    rotateY = 12;
+                    boxShadow = '0 25px 70px rgba(0, 0, 0, 0.7), 15px 0 40px rgba(0, 0, 0, 0.5)';
+                } else if (relativeIndex === 2) {
+                    // Far right card
+                    translateX = 680;
+                    translateY = -50;
+                    scale = 0.68;
+                    zIndex = 60;
+                    opacity = 0.5;
+                    rotateY = -20;
+                    boxShadow = '0 18px 50px rgba(0, 0, 0, 0.6), -20px 0 30px rgba(0, 0, 0, 0.4)';
+                } else if (relativeIndex === totalCards - 2) {
+                    // Far left card
+                    translateX = -1080;
+                    translateY = -50;
+                    scale = 0.68;
+                    zIndex = 60;
+                    opacity = 0.5;
+                    rotateY = 20;
+                    boxShadow = '0 18px 50px rgba(0, 0, 0, 0.6), 20px 0 30px rgba(0, 0, 0, 0.4)';
+                } else {
+                    // Very far cards (hidden)
+                    const direction = relativeIndex > totalCards / 2 ? -1 : 1;
+                    translateX = direction * 1300;
+                    translateY = -50;
+                    scale = 0.5;
+                    zIndex = 40;
+                    opacity = 0.2;
+                    rotateY = direction * -25;
+                    boxShadow = '0 10px 30px rgba(0, 0, 0, 0.4)';
+                }
+                
+                card.style.transform = `translate(${translateX}px, ${translateY}%) scale(${scale}) rotateY(${rotateY}deg) translateZ(${scale * 50}px)`;
+                card.style.zIndex = zIndex;
+                card.style.opacity = opacity;
+                card.style.boxShadow = boxShadow;
+                card.style.pointerEvents = relativeIndex === 0 ? 'auto' : 'none';
+            });
+        }
+        
+        function rotateCarousel(direction) {
+            currentIndex = (currentIndex + direction + totalCards) % totalCards;
+            updateCarousel();
+        }
+        
+        scrollLeftBtn.addEventListener('click', () => rotateCarousel(-1));
+        scrollRightBtn.addEventListener('click', () => rotateCarousel(1));
+        
+        // Click on cards to navigate
+        cards.forEach((card, index) => {
+            card.addEventListener('click', () => {
+                const relativeIndex = (index - currentIndex + totalCards) % totalCards;
+                if (relativeIndex !== 0) {
+                    currentIndex = index;
+                    updateCarousel();
+                }
+            });
+        });
+        
+        // Initialize carousel
+        updateCarousel();
     </script>
 </body>
 </html>
