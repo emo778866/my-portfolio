@@ -85,7 +85,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.5) 100%),
-                        url('back.png') center/cover;
+                        url('/images/back.png') center/cover;
             z-index: 2;
             filter: grayscale(100%) contrast(1.1) brightness(1.2);
             opacity: 0;
@@ -473,8 +473,17 @@
         .research-content p {
             color: #aaa;
             line-height: 1.7;
+            margin-bottom: 0.5rem;
+            flex-grow: 0;
+        }
+
+        .research-content ul {
+            color: #aaa;
+            line-height: 1.7;
+            margin-top: 0;
             margin-bottom: 1.5rem;
-            flex-grow: 1;
+            padding-left: 1.5rem;
+            list-style-type: disc;
         }
         
         .research-link {
@@ -760,7 +769,7 @@
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#teaching">Teaching</a>
-        <a href="#research">Research</a>
+        <a href="#research">Research & Projects</a>
         <a href="#experience">Experience</a>
     </nav>
     
@@ -771,8 +780,8 @@
         <a href="https://www.instagram.com/emo_778866/" target="_blank" title="Instagram">
             <i class="fab fa-instagram"></i>
         </a>
-        <a href="https://scholar.google.com" target="_blank" title="Google Scholar">
-            <i class="ai ai-google-scholar"></i>
+        <a href="https://www.researchgate.net/profile/Mehedi-Emo?ev=hdr_xprf" target="_blank" title="ResearchGate">
+            <i class="ai ai-researchgate"></i>
         </a>
         <a href="https://codeforces.com/profile/hasanemo654" target="_blank" title="Codeforces">
             <i class="fas fa-code"></i>
@@ -808,26 +817,37 @@
     <section id="about">
         <h2 class="section-title">About</h2>
         <div class="section-content">
-            <p>I am a Lecturer in the Department of Computer Science & Engineering at BRAC University. I mainly teach System Analysis and Design, Artificial Intelligence, and Software Analysis, and my research interests include Large Language Models (especially RAG), Software Engineering, and Machine Learning. I am open to supervising motivated students for research and project work. I graduated from BRAC University in 2022 with a B.Sc. in Computer Science & Engineering with a major in Computer Science and Engineering.</p>
+            <p>I am a Lecturer in the Department of Computer Science & Engineering at BRAC University. I mainly teach System Analysis and Design, Artificial Intelligence, and Software Engineering, and my research interests include Large Language Models (especially RAG), Software Engineering, and Machine Learning. I am open to supervising motivated students for research and project work. I graduated from BRAC University in 2022 with a B.Sc. in Computer Science & Engineering with a major in Computer Science and Engineering.</p>
         </div>
     </section>
     
     <section id="teaching">
         <h2 class="section-title">Teaching</h2>
         <div class="section-content">
-            <ul class="teaching-list">
-                <li>System Analysis and Design</li>
-                <li>Artificial Intelligence</li>
-                <li>Software Analysis</li>
-                <li>Machine Learning Fundamentals</li>
-                <li>Data Structures and Algorithms</li>
-                <li>Software Engineering Principles</li>
-            </ul>
+            <div class="teaching-category">
+                <h3>Courses Taught (Regularly)</h3>
+                <ul class="teaching-list">
+                    <li>Systems Analysis and Design</li>
+                    <li>Artificial Intelligence <span class="note"></span></li>
+                </ul>
+            </div>
+    
+            <div class="teaching-category">
+                <h3>Courses Previously Taught</h3>
+                <ul class="teaching-list">
+                    <li>Computer Interfacing (CSE 360)</li>
+                    <li>Computer Graphics (CSE 423)</li>
+                    <li>Data Structures (CSE 220)</li>
+                    <li>Algorithms (CSE 221)</li>
+                    <li>Programming Language II (CSE 111)</li>
+                    <li>Software Engineering (CSE 470)</li>
+                </ul>
+            </div>
         </div>
     </section>
     
     <section id="research">
-        <h2 class="section-title">Research & Projects</h2>
+        <h2 class="section-title">Research & Projects (Under My Supervision)</h2>
         <div class="research-container">
             <button class="scroll-btn scroll-left" aria-label="Scroll left">
                 <i class="fas fa-chevron-left"></i>
@@ -836,67 +856,56 @@
                 <div class="research-card" data-index="0">
                     <span class="research-tag research">Research</span>
                     <div class="research-image">
-                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop" alt="RAG System">
+                        <img src="/images/r1.png">
                     </div>
                     <div class="research-content">
-                        <h3>RAG-Enhanced Question Answering</h3>
-                        <p>Developing retrieval-augmented generation systems for improved contextual understanding in large language models.</p>
-                        <a href="#" class="research-link" target="_blank">View Project →</a>
+                        <h3>Student Consultation System</h3>
+                        <p>An intelligent platform designed to streamline academic advising and student support services. The system leverages AI to match students with appropriate advisors and provides personalized guidance based on academic performance and career goals.</p>
+                        <p style="margin-top: 1rem;">Supervising: MEHEZEBIN</p>
                     </div>
                 </div>
                 <div class="research-card" data-index="1">
                     <span class="research-tag project">Project</span>
                     <div class="research-image">
-                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=600&fit=crop" alt="Software Engineering">
+                        <img src="/images/p1.png">
                     </div>
                     <div class="research-content">
-                        <h3>Automated Code Review System</h3>
-                        <p>Machine learning-based tool for intelligent code analysis and quality assessment in software development workflows.</p>
-                        <a href="#" class="research-link" target="_blank">View Project →</a>
+                        <h3>Language Preference in RAG Systems</h3>
+                        <p>Exploring whether RAG systems show a tendency to prefer evidence in certain languages when multiple language sources are available. This study aims to identify any systematic bias in multilingual retrieval.</p>
+                        
                     </div>
                 </div>
                 <div class="research-card" data-index="2">
                     <span class="research-tag project">Project</span>
                     <div class="research-image">
-                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=600&fit=crop" alt="Machine Learning">
+                        <img src="/images/p2.png">
                     </div>
                     <div class="research-content">
-                        <h3>Predictive Analytics Framework</h3>
-                        <p>A comprehensive framework for building and deploying predictive models in various domains using ensemble learning techniques.</p>
-                        <a href="#" class="research-link" target="_blank">View Project →</a>
+                        <h3>Sensitivity to Linguistic Variations</h3>
+                        <p>Analyzing how small changes in language—such as formality, word order, or dialect—affect RAG retrieval performance. The goal is to understand how robust the system is to language variation.</p>
+                        
                     </div>
                 </div>
                 <div class="research-card" data-index="3">
                     <span class="research-tag research">Research</span>
                     <div class="research-image">
-                        <img src="https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=800&h=600&fit=crop" alt="Natural Language Processing">
+                        <img src="/images/r2.png" alt="Natural Language Processing">
                     </div>
                     <div class="research-content">
-                        <h3>Sentiment Analysis Tool</h3>
-                        <p>Advanced NLP-based sentiment analysis system for social media monitoring and customer feedback analysis.</p>
-                        <a href="#" class="research-link" target="_blank">View Project →</a>
+                        <h3>Blockchain Federated Learning for Road Fault Detection</h3>
+                        <p>A decentralized framework combining blockchain technology with federated learning to detect and report road infrastructure faults. The system uses tokenized incentives to encourage participation and incorporates LLM-assisted unlearning mechanisms for privacy preservation.</p>
+                        <p style="margin-top: 1rem;">Co-Supervising: SAMIA AFROZ RISHA, SAMIHA ISLAM SAMI, NUSRAT JAHAN, DIPANWITA BARUA</p>
                     </div>
                 </div>
                 <div class="research-card" data-index="4">
                     <span class="research-tag project">Project</span>
                     <div class="research-image">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop" alt="Data Analytics">
+                        <img src="/images/p3.png" alt="Data Analytics">
                     </div>
                     <div class="research-content">
-                        <h3>Real-time Data Pipeline</h3>
-                        <p>Scalable data processing pipeline for real-time analytics and visualization of large-scale datasets.</p>
-                        <a href="#" class="research-link" target="_blank">View Project →</a>
-                    </div>
-                </div>
-                <div class="research-card" data-index="5">
-                    <span class="research-tag research">Research</span>
-                    <div class="research-image">
-                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=600&fit=crop" alt="Deep Learning">
-                    </div>
-                    <div class="research-content">
-                        <h3>Neural Architecture Search</h3>
-                        <p>Automated neural network design using evolutionary algorithms and reinforcement learning techniques.</p>
-                        <a href="#" class="research-link" target="_blank">View Project →</a>
+                        <h3>Impact of Code-Switching on Retrieval</h3>
+                        <p>Investigating how mixed-language (code-switched) inputs influence the stability and reliability of RAG retrieval. This work aims to evaluate how well RAG handles multilingual content in a single query.</p>
+                        
                     </div>
                 </div>
             </div>
@@ -927,7 +936,7 @@
             <div class="timeline-item">
                 <h3>Web Developer</h3>
                 <div class="date">April 2019 - September 2019</div>
-                <p>CodeTrust Bangladesh</p>
+                <p>CoderTrust Bangladesh</p>
             </div>
         </div>
     </section>
