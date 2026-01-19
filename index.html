@@ -405,6 +405,26 @@
             will-change: transform, opacity, box-shadow;
         }
         
+        /* Mobile-specific research carousel */
+        @media (max-width: 768px) {
+            .research-container.mobile-mode .research-card {
+                position: relative;
+                left: 0;
+                top: 0;
+                transform: none !important;
+                opacity: 1 !important;
+                z-index: 1 !important;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+                pointer-events: auto !important;
+                margin: 0 auto 2rem;
+                display: none;
+            }
+            
+            .research-container.mobile-mode .research-card.active {
+                display: flex;
+            }
+        }
+        
         .research-card:hover {
             background: rgba(255,255,255,0.06);
             border-color: rgba(255,255,255,0.2);
@@ -685,6 +705,12 @@
             .research-container { 
                 height: 600px;
                 padding: 0 10px;
+                overflow: hidden;
+            }
+            
+            .research-slider {
+                display: block;
+                height: auto;
             }
             
             .research-card {
@@ -1028,16 +1054,46 @@
             });
         });
         
-        // Carousel functionality for research cards
-        const slider = document.getElementById('researchSlider');
+// Carousel functionality for research cards
+const slider = document.getElementById('researchSlider');
         const cards = Array.from(document.querySelectorAll('.research-card'));
         const scrollLeftBtn = document.querySelector('.scroll-left');
         const scrollRightBtn = document.querySelector('.scroll-right');
+        const researchContainer = document.querySelector('.research-container');
         
         let currentIndex = 0;
         const totalCards = cards.length;
+        let isMobile = window.innerWidth <= 768;
+        
+        // Check if mobile on resize
+        window.addEventListener('resize', () => {
+            const wasMobile = isMobile;
+            isMobile = window.innerWidth <= 768;
+            if (wasMobile !== isMobile) {
+                initCarousel();
+            }
+        });
+        
+        function initCarousel() {
+            if (isMobile) {
+                researchContainer.classList.add('mobile-mode');
+                cards.forEach((card, i) => {
+                    card.classList.toggle('active', i === currentIndex);
+                });
+            } else {
+                researchContainer.classList.remove('mobile-mode');
+                updateCarousel();
+            }
+        }
         
         function updateCarousel() {
+            if (isMobile) {
+                cards.forEach((card, i) => {
+                    card.classList.toggle('active', i === currentIndex);
+                });
+                return;
+            }
+            
             cards.forEach((card, i) => {
                 const relativeIndex = (i - currentIndex + totalCards) % totalCards;
                 
@@ -1077,7 +1133,7 @@
                     scale = 0.68;
                     zIndex = 60;
                     opacity = 0.5;
-                    rotateY = -20;
+                    rotateY = -12;
                     boxShadow = '0 18px 50px rgba(0, 0, 0, 0.6), -20px 0 30px rgba(0, 0, 0, 0.4)';
                 } else if (relativeIndex === totalCards - 2) {
                     // Far left card
@@ -1116,19 +1172,21 @@
         scrollLeftBtn.addEventListener('click', () => rotateCarousel(-1));
         scrollRightBtn.addEventListener('click', () => rotateCarousel(1));
         
-        // Click on cards to navigate
+        // Click on cards to navigate (desktop only)
         cards.forEach((card, index) => {
             card.addEventListener('click', () => {
-                const relativeIndex = (index - currentIndex + totalCards) % totalCards;
-                if (relativeIndex !== 0) {
-                    currentIndex = index;
-                    updateCarousel();
+                if (!isMobile) {
+                    const relativeIndex = (index - currentIndex + totalCards) % totalCards;
+                    if (relativeIndex !== 0) {
+                        currentIndex = index;
+                        updateCarousel();
+                    }
                 }
             });
         });
         
         // Initialize carousel
-        updateCarousel();
+        initCarousel();
     </script>
 </body>
 </html>
