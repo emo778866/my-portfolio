@@ -8,7 +8,263 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.3/css/academicons.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap');
-        
+                /* Style Toggle Button */
+        .style-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 8%;
+            z-index: 1002;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInToggle 0.8s ease 0.5s forwards;
+        }
+
+        @keyframes fadeInToggle {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .style-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .style-toggle i {
+            margin-right: 0.5rem;
+        }
+
+        /* Smooth, subtle transitions - like film frames changing */
+        body,
+        .name,
+        .tagline,
+        .tagline span,
+        .section-title,
+        .section-content,
+        .teaching-list li,
+        .timeline-item h3,
+        .timeline-item .date,
+        .timeline-item p,
+        .research-content h3,
+        .research-content p,
+        .research-content ul,
+        nav a,
+        .social-sidebar a,
+        .research-card,
+        .scroll-btn,
+        .back-to-top {
+            transition: color 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        background 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        background-color 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        border-color 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        -webkit-text-fill-color 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        section {
+            transition: background 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        background-color 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .hero::before {
+            transition: opacity 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        filter 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        background 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Style 2 (Softer, more natural light mode) Colors */
+        /* Style 2 (Lighter, high contrast mode) Colors */
+        body.style-2 {
+            background: #d8d8d8;
+        }
+
+        body.style-2 .name {
+            background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.style-2 .tagline {
+            color: #2a2a2a;
+        }
+
+        body.style-2 section:nth-child(even) {
+            background: #e8e8e8;
+        }
+
+        body.style-2 section:nth-child(odd) {
+            background: #d8d8d8;
+        }
+
+        body.style-2 .section-title {
+            background: linear-gradient(135deg, #0a0a0a 0%, #3a3a3a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.style-2 .section-content {
+            color: #2a2a2a;
+        }
+
+        body.style-2 .teaching-list li {
+            color: #2a2a2a;
+        }
+
+        body.style-2 .teaching-list li::before {
+            color: #3a7ab5;
+        }
+
+        body.style-2 .timeline-item h3 {
+            color: #1a1a1a;
+        }
+
+        body.style-2 .timeline-item .date {
+            color: #666666;
+        }
+
+        body.style-2 .timeline-item p {
+            color: #3a3a3a;
+        }
+
+        body.style-2 .research-content h3 {
+            color: #1a1a1a;
+        }
+
+        body.style-2 .research-content p,
+        body.style-2 .research-content ul {
+            color: #3a3a3a;
+        }
+
+        body.style-2 nav a {
+            color: #1a1a1a;
+        }
+
+        body.style-2 .social-sidebar a {
+            color: #4a4a4a;
+        }
+
+        body.style-2 .social-sidebar a:hover {
+            color: #1a1a1a;
+        }
+
+        body.style-2 .research-card {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        body.style-2 .research-card:hover {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(0, 0, 0, 0.25);
+        }
+
+        body.style-2 .research-link {
+            color: #1a1a1a;
+        }
+
+        body.style-2 .scroll-btn {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            color: #1a1a1a;
+        }
+
+        body.style-2 .scroll-btn:hover {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        body.style-2 .back-to-top {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        body.style-2 .back-to-top:hover {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        body.style-2 .back-to-top i {
+            color: #1a1a1a;
+        }
+
+        body.style-2 .social-sidebar {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.65));
+            border-left: 1px solid rgba(0, 0, 0, 0.15);
+            box-shadow: -15px 0 50px rgba(0, 0, 0, 0.15), -8px 0 20px rgba(0, 0, 0, 0.1),
+                        inset 1px 0 1px rgba(255, 255, 255, 0.5), inset -1px 0 1px rgba(0, 0, 0, 0.05);
+        }
+
+        body.style-2 .social-sidebar::before {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 50%, rgba(255, 255, 255, 0.15) 100%);
+        }
+
+        body.style-2 .social-sidebar::after {
+            background: radial-gradient(ellipse 150px 100% at 100% 50%, rgba(0, 0, 0, 0.1) 0%, transparent 70%);
+        }
+
+        body.style-2 .timeline::before {
+            background: linear-gradient(180deg, #3a7ab5, #d97a4a);
+        }
+
+        body.style-2 .timeline-item::before {
+            background: #1a1a1a;
+            border: 3px solid #f5f5f5;
+        }
+
+        body.style-2 nav {
+            background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 100%);
+        }
+
+        body.style-2 nav.scrolled {
+            background: rgba(255,255,255,0.2);
+        }
+
+        body.style-2 nav a::after {
+            background: #1a1a1a;
+        }
+
+        /* Keep the same background image - no overlay or filter changes */
+        body.style-2 .hero::before {
+            background: url('./images/try.jpg') center/cover;
+            filter: none;
+        }
+
+        body.style-2 .style-toggle {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            color: #1a1a1a;
+        }
+
+        body.style-2 .style-toggle:hover {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        @media (max-width: 768px) {
+            body.style-2 .social-sidebar {
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.65));
+                border-left: none;
+                border-top: 1px solid rgba(0, 0, 0, 0.15);
+                box-shadow: 0 -15px 50px rgba(0, 0, 0, 0.15), 0 -8px 20px rgba(0, 0, 0, 0.1),
+                            inset 0 1px 1px rgba(255, 255, 255, 0.5), inset 0 -1px 1px rgba(0, 0, 0, 0.05);
+            }
+
+            body.style-2 .social-sidebar::before {
+                background: linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, transparent 50%, rgba(255, 255, 255, 0.15) 100%);
+            }
+
+            body.style-2 .social-sidebar::after {
+                background: radial-gradient(ellipse 100% 150px at 50% 100%, rgba(0, 0, 0, 0.1) 0%, transparent 70%);
+            }
+        }
         * {
             margin: 0;
             padding: 0;
@@ -85,19 +341,27 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.5) 100%),
-                        url('./images/back.png') center/cover;
+                        url('./images/try.jpg') center center no-repeat;
+            background-size: cover;
             z-index: 2;
             filter: grayscale(100%) contrast(1.1) brightness(1.2);
             opacity: 0;
-            animation: fadeInBackground 0.8s ease 3.5s forwards, slowPan 60s ease-in-out infinite;
+            animation: fadeInBackground 2.5s ease 3.5s forwards, slowPan 60s ease-in-out infinite;
         }
         
         @keyframes slowPan {
-            0%, 100% { transform: scale(1) translateX(0); }
-            50% { transform: scale(1.1) translateX(-2%); }
+            0%, 100% { 
+                background-position: center center;
+                background-size: cover;
+            }
+            50% { 
+                background-position: 48% center;
+                background-size: 110% auto;
+            }
         }
         
         @keyframes fadeInBackground {
+            from { opacity: 0; }
             to { opacity: 1; }
         }
         
@@ -256,7 +520,7 @@
         
         .tagline {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1.58rem;
             font-weight: 400;
             line-height: 1.8;
             color: white;
@@ -268,8 +532,12 @@
         
         @keyframes taglineColorChange {
             from { color: white; }
-            to { color: black; }
+            to { color: white; }
         }
+
+        body.style-2 .tagline {
+        color: #000000 !important;
+    }
         
         .tagline span {
             display: block;
@@ -464,7 +732,9 @@
         
         .research-image {
             width: 100%;
-            height: 250px;
+            height: 35%;
+            min-height: 200px;
+            flex-shrink: 0;
             overflow: hidden;
             position: relative;
         }
@@ -486,6 +756,39 @@
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+            overflow-y: auto;
+            height: 65%;
+        }
+
+        /* Scrollbar styling for research content */
+        .research-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .research-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .research-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .research-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        body.style-2 .research-content::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        body.style-2 .research-content::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        body.style-2 .research-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.5);
         }
         
         .research-content h3 {
@@ -787,13 +1090,20 @@
                 height: 480px;
             }
             
-            .research-image { height: 200px; }
+            .research-image { 
+            height: 35%;
+            min-height: 180px;
+        }
             .research-content { padding: 1.5rem; }
             .research-content h3 { font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
+    <button class="style-toggle" id="styleToggle">
+        <i class="fas fa-palette"></i>
+        <span>Switch Style</span>
+    </button>
     <div class="scroll-progress" id="scrollProgress"></div>
     <div class="stars-container" id="starsContainer"></div>
     
@@ -867,12 +1177,12 @@
             <div class="teaching-category">
                 <h3>Courses Previously Taught</h3>
                 <ul class="teaching-list">
-                    <li>Computer Interfacing (CSE 360)</li>
-                    <li>Computer Graphics (CSE 423)</li>
-                    <li>Data Structures (CSE 220)</li>
-                    <li>Algorithms (CSE 221)</li>
-                    <li>Programming Language II (CSE 111)</li>
                     <li>Software Engineering (CSE 470)</li>
+                    <li>Computer Graphics (CSE 423)</li>
+                    <li>Computer Interfacing (CSE 360)</li>
+                    <li>Algorithms (CSE 221)</li>
+                    <li>Data Structures (CSE 220)</li>
+                    <li>Programming Language II (CSE 111)</li>
                 </ul>
             </div>
         </div>
@@ -968,7 +1278,7 @@
             <div class="timeline-item">
                 <h3>Web Developer</h3>
                 <div class="date">April 2019 - September 2019</div>
-                <p>CoderTrust Bangladesh</p>
+                <p>CodersTrust Bangladesh</p>
             </div>
         </div>
     </section>
@@ -1193,6 +1503,76 @@ const slider = document.getElementById('researchSlider');
         
         // Initialize carousel
         initCarousel();
+    const styleToggle = document.getElementById('styleToggle');
+    let currentStyle = 2; // Changed from 1 to 2 (start with the lighter style as default)
+    let isTransitioning = false;
+
+    // Check for saved style preference
+    const savedStyle = localStorage.getItem('portfolioStyle');
+    if (savedStyle === '1') { // Changed from '2' to '1'
+        document.body.classList.add('style-2');
+        currentStyle = 1; // Changed from 2 to 1
+    }
+
+    styleToggle.addEventListener('click', () => {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        
+        // Very subtle button feedback
+        styleToggle.style.transform = 'scale(0.97)';
+        setTimeout(() => {
+            styleToggle.style.transform = '';
+        }, 100);
+        
+        // Create smooth crossfade overlay
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.background = currentStyle === 2 // Changed from 1 to 2
+            ? 'rgba(20, 20, 20, 0)'
+            : 'rgba(0, 0, 0, 0)';
+        overlay.style.pointerEvents = 'none';
+        overlay.style.zIndex = '9998';
+        overlay.style.transition = 'background 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        
+        document.body.appendChild(overlay);
+        
+        // Start fade in
+        setTimeout(() => {
+            overlay.style.background = currentStyle === 2 // Changed from 1 to 2
+                ? 'rgba(20, 20, 20, 0.08)'
+                : 'rgba(0, 0, 0, 0.08)';
+        }, 10);
+        
+        // Toggle style class at peak of fade (smoother transition point)
+        setTimeout(() => {
+            document.body.classList.toggle('style-2');
+            currentStyle = currentStyle === 2 ? 1 : 2; // Changed from 1 ? 2 : 1
+            
+            // Save preference
+            localStorage.setItem('portfolioStyle', currentStyle.toString());
+        }, 400);
+        
+        // Fade out overlay
+        setTimeout(() => {
+            overlay.style.background = currentStyle === 2 // Changed from 1 to 2
+                ? 'rgba(0, 0, 0, 0)'
+                : 'rgba(20, 20, 20, 0)';
+        }, 50);
+        
+        // Remove overlay element
+        setTimeout(() => {
+            if (overlay.parentNode) {
+                document.body.removeChild(overlay);
+            }
+            isTransitioning = false;
+        }, 1300);
+    });
+
+
     </script>
 </body>
 </html>
